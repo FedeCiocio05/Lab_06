@@ -1,3 +1,6 @@
+import mysql
+from mysql.connector import errorcode
+
 from database.DB_connect import get_connection
 from model.strumento import Strumento
 from model.prestito import Prestito
@@ -35,6 +38,32 @@ class DepositoStrumenti:
             Funzione che legge tutti gli strumenti nel database
             :return: una lista con tutti gli strumenti presenti oppure None
         """
+        cnx = get_connection()
+        if cnx is None:
+            raise ConnectionError("Impossibile connettersi al database.")
+
+        cursor = cnx.cursor()
+        try:
+            query = """
+                    SELECT *
+                    FROM strumento
+                    """
+            cursor.execute(query)
+
+            lista_strumenti = []
+            for row in cursor:
+                lista_strumenti.append(Strumento(row[0],
+                                                 row[1],
+                                                 row[2],
+                                                 row[3],
+                                                 row[4],
+                                                 row[5])
+                                       )
+            return lista_strumenti
+        finally:    #a prescindere dal try chiudo la connessione
+            cursor.close()
+            cnx.close()
+
         # TODO
 
     def cerca_strumenti_per_tipo(self, tipo) -> list[Strumento] | None:
@@ -43,4 +72,30 @@ class DepositoStrumenti:
             :param tipo: il tipo dello strumento (es. "Chitarra")
             :return: una lista con tutti gli strumenti del tipo indicato oppure None
         """
+        cnx = get_connection()
+        if cnx is None:
+            raise ConnectionError("Impossibile connettersi al database.")
+
+        cursor = cnx.cursor()
+        try:
+            query = """
+                        SELECT *
+                        FROM strumento
+                        WHERE tipo = %s
+                    """
+            cursor.execute(query)
+
+            strumenti_per_tipo = []
+            for row in cursor:
+                strumenti_per_tipo.append(Strumento(row[0],
+                                                 row[1],
+                                                 row[2],
+                                                 row[3],
+                                                 row[4],
+                                                 row[5])
+                                       )
+            return strumenti_per_tipo
+        finally:  # a prescindere dal try chiudo la connessione
+            cursor.close()
+            cnx.close()
         # TODO
