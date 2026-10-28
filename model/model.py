@@ -45,8 +45,8 @@ class DepositoStrumenti:
         cursor = cnx.cursor()
         try:
             query = """
-                    SELECT *
-                    FROM strumento
+                        SELECT *
+                        FROM strumento
                     """
             cursor.execute(query)
 
@@ -83,7 +83,7 @@ class DepositoStrumenti:
                         FROM strumento
                         WHERE tipo = %s
                     """
-            cursor.execute(query)
+            cursor.execute(query, (tipo,))
 
             strumenti_per_tipo = []
             for row in cursor:

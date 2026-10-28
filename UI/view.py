@@ -63,6 +63,9 @@ class View:
         pulsante_conferma_responsabile = ft.Button("Conferma", on_click=self.controller.conferma_responsabile)
 
         # Altri Pulsanti da implementare (es. "Mostra" e "Cerca")
+        pulsante_mostra_strumenti = ft.Button("Mostra", on_click=self.controller.popola_lista_strumenti)
+
+        pulsante_cerca_per_tipo = ft.Button("Cerca", on_click=self.controller.popola_lista_strumenti_per_tipo)
         # TODO
 
         # --- LAYOUT ---
@@ -82,9 +85,19 @@ class View:
             ft.Divider(),
 
             # Sezione 3
+            ft.Row(spacing=10,
+                   controls=[ft.Text('Strumenti', size=20), pulsante_mostra_strumenti],
+                   alignment=ft.MainAxisAlignment.START),
+            self.lista_strumenti,
+            ft.Divider(),
             # TODO
 
             # Sezione 4
+            ft.Text("Cerca Strumento per Tipo", size=20),
+            ft.Row(spacing=10,
+                   controls=[self.input_tipo_strumento, pulsante_cerca_per_tipo],
+                   alignment=ft.MainAxisAlignment.START),
+            self.lista_strumenti_ricerca
             # TODO
         )
 
