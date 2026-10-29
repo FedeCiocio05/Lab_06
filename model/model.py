@@ -38,6 +38,7 @@ class DepositoStrumenti:
             Funzione che legge tutti gli strumenti nel database
             :return: una lista con tutti gli strumenti presenti oppure None
         """
+        #stabilisco la connessione
         cnx = get_connection()
         if cnx is None:
             raise ConnectionError("Impossibile connettersi al database.")
@@ -72,6 +73,7 @@ class DepositoStrumenti:
             :param tipo: il tipo dello strumento (es. "Chitarra")
             :return: una lista con tutti gli strumenti del tipo indicato oppure None
         """
+        #stabilisco la connessione
         cnx = get_connection()
         if cnx is None:
             raise ConnectionError("Impossibile connettersi al database.")
@@ -83,16 +85,16 @@ class DepositoStrumenti:
                         FROM strumento
                         WHERE tipo = %s
                     """
-            cursor.execute(query, (tipo,))
+            cursor.execute(query, (tipo,)) #parametro {tipo <--> %s}
 
             strumenti_per_tipo = []
             for row in cursor:
                 strumenti_per_tipo.append(Strumento(row[0],
-                                                 row[1],
-                                                 row[2],
-                                                 row[3],
-                                                 row[4],
-                                                 row[5])
+                                                     row[1],
+                                                     row[2],
+                                                     row[3],
+                                                     row[4],
+                                                     row[5])
                                        )
             return strumenti_per_tipo
         finally:  # a prescindere dal try chiudo la connessione

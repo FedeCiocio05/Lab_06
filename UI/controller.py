@@ -29,6 +29,7 @@ class Controller:
 
     # Altre Funzioni Event Handler
     def popola_lista_strumenti(self, e):
+        #recupero dal model la lista completa degli strumenti
         lista_strumenti = self._model.get_strumenti()
 
         self._view.lista_strumenti.controls.clear()
@@ -40,12 +41,14 @@ class Controller:
     # TODO
 
     def popola_lista_strumenti_per_tipo(self, e):
+        #recupero dalla view il valore del TextField 'tipo'
         tipo = self._view.input_tipo_strumento.value.strip()
 
         if not tipo:
             self._view.show_alert('Inserisci tipo!')
             return
 
+        #recupero dal model la lista degli strumenti filtrata per 'tipo'
         lista_strumenti_per_tipo = self._model.cerca_strumenti_per_tipo(tipo)
 
         self._view.lista_strumenti_ricerca.controls.clear()

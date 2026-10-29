@@ -88,7 +88,7 @@ class View:
             ft.Row(spacing=10,
                    controls=[ft.Text('Strumenti', size=20), pulsante_mostra_strumenti],
                    alignment=ft.MainAxisAlignment.START),
-            self.lista_strumenti,
+            self.lista_strumenti, #appendo la ListView
             ft.Divider(),
             # TODO
 
@@ -97,7 +97,7 @@ class View:
             ft.Row(spacing=10,
                    controls=[self.input_tipo_strumento, pulsante_cerca_per_tipo],
                    alignment=ft.MainAxisAlignment.START),
-            self.lista_strumenti_ricerca
+            self.lista_strumenti_ricerca #appendo la ListView
             # TODO
         )
 
